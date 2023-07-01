@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stopwatch_task/UI/stopwatch_stream.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TaskStopWatch extends StatefulWidget {
   @override
@@ -53,72 +54,92 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF397097),
       appBar: AppBar(title: Text("Flutter StopWatch")),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "$hoursStr:$minutesStr:$secondsStr",
-              style: TextStyle(
-                fontSize: 90.0,
-              ),
-            ),
-            SizedBox(height: 30.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-                  child: ElevatedButton(
-                    onPressed: isRunning ? stopStopwatch : startStopwatch,
+      body: Padding(
+        padding: const EdgeInsets.all(40.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                children: [
+                  SvgPicture.network('https://file.io/zBqqn3SqZphG',
+                  width: 200,
+                  height: 300,),
+                  Positioned(
+                    left: 50,
+                    bottom: 120,
+                    right: 50,
                     child: Text(
-                      isRunning ? 'STOP' : 'START',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 40.0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: resetStopwatch,
-                    child: Text(
-                      'RESET',
-                      style: TextStyle(
+                      "$hoursStr:$minutesStr:$secondsStr",
+                      style: GoogleFonts.inter(
+                        fontSize:40 ,
                         color: Colors.white,
-                        fontSize: 20.0,
+
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 30.0),
-            ElevatedButton(
-              onPressed: isRunning ? recordLapTime : null,
-              child: Text(
-                'LAP',
-                style: TextStyle(
-                  fontSize: 20.0,
+                ],
+              ),
+
+              SizedBox(height: 30.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+                    child: ElevatedButton(
+                      onPressed: isRunning ? stopStopwatch : startStopwatch,
+                      child: Text(
+                        isRunning ? 'STOP' : 'START',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 40.0),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: resetStopwatch,
+                      child: Text(
+                        'RESET',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 30.0),
+              ElevatedButton(
+                onPressed: isRunning ? recordLapTime : null,
+                child: Text(
+                  'LAP',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20.0),
-            Expanded(
-              child: ListView.builder(
-                itemCount: lapTimes.length,
-                itemBuilder: (context, index) {
-                  final lapTime = lapTimes[index];
-                  return ListTile(
-                    title: Text(lapTime),
-                  );
-                },
+              SizedBox(height: 20.0),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: lapTimes.length,
+                  itemBuilder: (context, index) {
+                    final lapTime = lapTimes[index];
+                    return ListTile(
+                      title: Text(lapTime),
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
