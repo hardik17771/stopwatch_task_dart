@@ -54,8 +54,13 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF397097),
-      appBar: AppBar(title: Text("Flutter StopWatch")),
+      backgroundColor: Color(0xFF011A67),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF435BA0),
+          title: Text("Flutter StopWatch",
+      style: GoogleFonts.inter(
+
+      ),)),
       body: Padding(
         padding: const EdgeInsets.all(40.0),
         child: Center(
@@ -63,8 +68,9 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Stack(
+                textDirection: TextDirection.ltr,
                 children: [
-                  SvgPicture.network('https://file.io/zBqqn3SqZphG',
+                  SvgPicture.network('https://filebin.net/0xfy0mglcdst5yg5/Ellipse11.svg',
                   width: 200,
                   height: 300,),
                   Positioned(
@@ -86,43 +92,77 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
 
               SizedBox(height: 30.0),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                  child: Container(height: 60,
+                    width: 120,
                     child: ElevatedButton(
                       onPressed: isRunning ? stopStopwatch : startStopwatch,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF435BA0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                          side: BorderSide(color: Colors.white, width: 3.0),
+                        ),
+                      ),
                       child: Text(
                         isRunning ? 'STOP' : 'START',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 40.0),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      onPressed: resetStopwatch,
-                      child: Text(
-                        'RESET',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: Colors.white,
-                          fontSize: 20.0,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      ),
+                  ),
+        ),
+                  SizedBox(width: 20.0,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                    child: Container(height: 60,
+                      width: 120,
+                      child: ElevatedButton(
+                        onPressed: resetStopwatch,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF338DC1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0),
+                            side: BorderSide(color: Colors.white, width: 3.0),
+                          ),
+                        ),
+                        child: Text(
+                          'RESET',
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                          ),
                         ),
                       ),
                     ),
                   ),
+
+
                 ],
               ),
-              SizedBox(height: 30.0),
-              ElevatedButton(
-                onPressed: isRunning ? recordLapTime : null,
-                child: Text(
-                  'LAP',
-                  style: TextStyle(
-                    fontSize: 20.0,
+              SizedBox(height: 20.0),
+              Container(
+                height: 100,
+                width: 100,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF397097),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(80.0),
+                      side: BorderSide(color: Colors.white, width: 3.0),
+                    ),
+                  ),
+                  onPressed: isRunning ? recordLapTime : null,
+                  child: Text(
+                    'LAP',
+                    style: GoogleFonts.inter(
+                      fontSize: 20.0,
+                    ),
                   ),
                 ),
               ),
