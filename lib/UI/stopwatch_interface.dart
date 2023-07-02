@@ -66,7 +66,7 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
 
       ),)),
       body: Padding(
-        padding: const EdgeInsets.all(40.0),
+        padding: const EdgeInsets.all(35.0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -75,8 +75,8 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
                 textDirection: TextDirection.ltr,
                 children: [
                   SvgPicture.network('https://filebin.net/0xfy0mglcdst5yg5/Ellipse11.svg',
-                  width: screen_width*0.5,
-                  height: screen_height*0.346,),
+                  width: screen_width*0.32,
+                  height: screen_height*0.32,),
                   Positioned(
                     left: screen_width*0.121,
                     bottom: 120,
@@ -84,7 +84,7 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
                     child: Text(
                       "$hoursStr:$minutesStr:$secondsStr",
                       style: GoogleFonts.inter(
-                        fontSize:40 ,
+                        fontSize:35 ,
                         color: Colors.white,
 
                         fontWeight: FontWeight.bold,
@@ -129,7 +129,7 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
                       child: ElevatedButton(
                         onPressed: resetStopwatch,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF338DC1),
+                          backgroundColor: Color(0xFF435BA0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50.0),
                             side: BorderSide(color: Colors.white, width: 3.0),
@@ -149,10 +149,10 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
 
                 ],
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 15.0),
               Container(
-                height:screen_height*0.1154,
-                width: screen_width*0.243,
+                height:screen_height*0.09,
+                width: screen_width*0.2,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF397097),
@@ -170,21 +170,33 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
                   ),
                 ),
               ),
-              SizedBox(height: screen_height*0.023,),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: lapTimes.length,
-                  itemBuilder: (context, index) {
-                    final lapTime = lapTimes[index];
-                    return ListTile(
-                      title: Text(lapTime,
-                      style: GoogleFonts.inter(
-                        fontSize: 25,
-                        color: Colors.white,
+              SizedBox(height: screen_height*0.036,),
+              SingleChildScrollView(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFF397097).withOpacity(0.45),
+                    border: Border.all(
+                      color: Colors.white, // Replace Colors.black with your desired border color
+                      width: 1.0, // Adjust the width to control the border thickness
+                    ),
+                    borderRadius: BorderRadius.circular(10.0), // Adjust the value to control the roundness
+                  ),
+                  height: screen_height*0.18,
 
-                      ),),
-                    );
-                  },
+                  child: ListView.builder(
+                    itemCount: lapTimes.length,
+                    itemBuilder: (context, index) {
+                      final lapTime = lapTimes[index];
+                      return ListTile(
+                        title: Text(lapTime,
+                        style: GoogleFonts.inter(
+                          fontSize: 16,
+                          color: Colors.white,
+
+                        ),),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
