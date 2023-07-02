@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stopwatch_task/UI/stopwatch_stream.dart';
+import 'package:stopwatch_task/Stream/stopwatch_stream.dart';
 
 class TaskStopWatch extends StatefulWidget {
   @override
