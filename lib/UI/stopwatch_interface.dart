@@ -11,6 +11,7 @@ class TaskStopWatch extends StatefulWidget {
 }
 
 class _TaskStopWatchState extends State<TaskStopWatch> {
+
   late Stream<int> timerStream;
   late StreamSubscription<int> timerSubscription;
   String hoursStr = '00';
@@ -53,6 +54,9 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
 
   @override
   Widget build(BuildContext context) {
+
+    double screen_height = MediaQuery.of(context).size.height;
+    double screen_width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xFF011A67),
       appBar: AppBar(
@@ -71,12 +75,12 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
                 textDirection: TextDirection.ltr,
                 children: [
                   SvgPicture.network('https://filebin.net/0xfy0mglcdst5yg5/Ellipse11.svg',
-                  width: 200,
-                  height: 300,),
+                  width: screen_width*0.5,
+                  height: screen_height*0.346,),
                   Positioned(
-                    left: 50,
+                    left: screen_width*0.121,
                     bottom: 120,
-                    right: 50,
+                    right: screen_width*0.121,
                     child: Text(
                       "$hoursStr:$minutesStr:$secondsStr",
                       style: GoogleFonts.inter(
@@ -96,8 +100,8 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                  child: Container(height: 60,
-                    width: 120,
+                  child: Container(height: screen_height*0.0692,
+                    width: screen_width*0.2916,
                     child: ElevatedButton(
                       onPressed: isRunning ? stopStopwatch : startStopwatch,
                       style: ElevatedButton.styleFrom(
@@ -120,8 +124,8 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
                   SizedBox(width: 20.0,),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                    child: Container(height: 60,
-                      width: 120,
+                    child: Container(height: screen_height*0.0692,
+                      width: screen_width*0.2916,
                       child: ElevatedButton(
                         onPressed: resetStopwatch,
                         style: ElevatedButton.styleFrom(
@@ -147,8 +151,8 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
               ),
               SizedBox(height: 20.0),
               Container(
-                height: 100,
-                width: 100,
+                height:screen_height*0.1154,
+                width: screen_width*0.243,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF397097),
@@ -166,14 +170,19 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: screen_height*0.023,),
               Expanded(
                 child: ListView.builder(
                   itemCount: lapTimes.length,
                   itemBuilder: (context, index) {
                     final lapTime = lapTimes[index];
                     return ListTile(
-                      title: Text(lapTime),
+                      title: Text(lapTime,
+                      style: GoogleFonts.inter(
+                        fontSize: 25,
+                        color: Colors.white,
+
+                      ),),
                     );
                   },
                 ),
