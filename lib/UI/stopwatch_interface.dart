@@ -19,6 +19,7 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
   bool isRunning = false;
   List<String> lapTimes = [];
   late SharedPreferences sharedPreferences;
+  int lastRecordedCounter = 0;
 
   @override
   void initState() {
@@ -204,46 +205,57 @@ class _TaskStopWatchState extends State<TaskStopWatch> {
     );
   }
 
+
   void startStopwatch() {
-    timerStream = stopWatchStream();
-    timerSubscription = timerStream.listen((int newTick) {
-      setState(() {
-        hoursStr = ((newTick / (60 * 60)) % 60)
-            .floor()
-            .toString()
-            .padLeft(2, '0');
-        minutesStr = ((newTick / 60) % 60).floor().toString().padLeft(2, '0');
-        secondsStr = (newTick % 60).floor().toString().padLeft(2, '0');
+    if (!isRunning) {
+      timerStream = stopWatchStream();
+      timerSubscription = timerStream.listen((int newTick) {
+        setState(() {
+          int totalSeconds = newTick + lastRecordedCounter;
+          hoursStr = ((totalSeconds / (60 * 60)) % 60)
+              .floor()
+              .toString()
+              .padLeft(2, '0');
+          minutesStr =
+              ((totalSeconds / 60) % 60).floor().toString().padLeft(2, '0');
+          secondsStr = (totalSeconds % 60).floor().toString().padLeft(2, '0');
+        });
       });
-    });
-    setState(() {
-      isRunning = true;
-    });
+      setState(() {
+        isRunning = true;
+      });
+    }
   }
 
   void stopStopwatch() {
-    timerSubscription.cancel();
-    setState(() {
-      isRunning = false;
-    });
+    if (isRunning) {
+      timerSubscription.cancel();
+      lastRecordedCounter += int.parse(hoursStr) * 60 * 60 +
+          int.parse(minutesStr) * 60 +
+          int.parse(secondsStr);
+      setState(() {
+        isRunning = false;
+      });
+    }
   }
 
   void resetStopwatch() {
-    timerSubscription.cancel();
-    setState(() {
-      hoursStr = '00';
-      minutesStr = '00';
-      secondsStr = '00';
-      lapTimes.clear();
-    });
-    saveLapTimes();
+    if (!isRunning) {
+      setState(() {
+        hoursStr = '00';
+        minutesStr = '00';
+        secondsStr = '00';
+        lastRecordedCounter = 0;
+        lapTimes.clear();
+        saveLapTimes();
+      });
+    }
   }
 
   void recordLapTime() {
-    final lapTime = "$hoursStr:$minutesStr:$secondsStr";
     setState(() {
-      lapTimes.insert(0, lapTime);
+      lapTimes.add('$hoursStr:$minutesStr:$secondsStr');
+      saveLapTimes();
     });
-    saveLapTimes();
   }
 }
